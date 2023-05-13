@@ -1,0 +1,50 @@
+{
+  "landing": {
+    "subheader": "Payments",
+    "header": "Putting the FUN back into sending funds",
+    "title": "Save valuable seconds, when sending money with Revolut",
+    "button-text": "Get started"
+  },
+  "card-content": [
+    {
+      "title": "Sending money, easy by default",
+      "subtitle": "Moving money should never take more than a few taps. Transfers are always free between Revolut friends (and you can even add a gif, apparently the kids love it these days)",
+      "button-text": "Try it out",
+      "image-url": "https://www.revolut.com/_next/image-asset/w:2048/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2F42abd773-4c82-45ce-8f28-587925c5237c%2Fe406a879-b073-4726-8a27-7519c015a7fb.png"
+    },
+    {
+      "title": "Request money in any combo",
+      "subtitle": "Choose your way to ask for money: send payment links, try ‘near me’ or flash QR codes, so there’s no escape from paying you back",
+      "button-text": "Get started",
+      "image-url": "https://www.revolut.com/_next/image-asset/w:2048/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2F9c770d53-2eff-43da-a366-eea40f634742%2F884eaf51-92cf-4778-9257-01d674beef4b.png"
+    },
+    {
+      "title": "Make money chats less ~awk~",
+      "description": "Use our encrypted Chat to settle up, swap gifs, and send reminders so you’ll never have to text your old flatmate, or ex, again",
+      "button-text": "Learn more",
+      "image-url": "https://www.revolut.com/_next/image-asset/w:2048/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2Fec56957e-a0b9-4898-9c50-5050d08bd445%2F44a10425-ef15-4a28-aade-f1daa19115ac.png"
+    },
+    {
+      "title": "Split and settle bills without the stress",
+      "subtitle": "From restaurant tabs to rent, split bills with anyone, even if they’re not on Revolut. Just tell us and we’ll do the maths",
+      "button-text": "Try it out",
+      "image-url": "https://www.revolut.com/_next/image-asset/w:2048/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2Fb582b39e-6bc9-4694-8e29-599050ad0258%2F151e971b-3931-48eb-b3f3-55bf558be5a4.png"
+    },
+    {
+      "title": "Share your @Revtag for easy social payments",
+      "subtitle": "Choose your unique username and generate a shareable URL to collect money from friends,  family or anyone else, privately and securely. No bank details needed",
+      "button-text": "Learn more",
+      "image-url": "https://www.revolut.com/_next/image-asset/w:2048/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2F996b3890-5212-4002-a35d-9d3aef86374d%2F63353795-c9ae-4457-939e-2946f3feb29e.png"
+    }
+  ],
+  "end-of-body": {
+    "subtitle": "What are you waiting for?",
+    "title": "Start making easy transfers now",
+    "button-text": "Try Revolut Now"
+  },
+  "footer": {
+    "subtitle": "What are you waiting for?",
+    "title": "Get the only financial super app",
+    "button-text": "Try Revolut Now"
+  }
+}

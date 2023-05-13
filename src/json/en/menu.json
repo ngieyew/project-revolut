@@ -1,0 +1,57 @@
+{
+  "essentials": {
+    "title": "Essentials",
+    "sub-menu": [
+      { "title": "Payments" },
+      { "title": "Currency exchange" },
+      { "title": "International transfers" },
+      { "title": "Cards" },
+      { "title": "Revolut Pro" },
+      { "title": "Open banking" },
+      { "title": "Early salary" },
+      { "title": "On-Demand Pay" },
+      { "title": "Revolut <18 Parents & Guardians" },
+      { "title": "Subscriptions" },
+      { "title": "Budgeting and analytics" },
+      { "title": "Pockets" }
+    ]
+  },
+  "wealth": {
+    "title": "Wealth",
+    "sub-menu": [
+      { "title": "Crypto" },
+      { "title": "Stocks" },
+      { "title": "Commodities" },
+      { "title": "Vaults" },
+      { "title": "Saving vaults" }
+    ]
+  },
+  "security": {
+    "title": "Security",
+    "sub-menu": [{ "title": "Security" }, { "title": "About Fraud and Scams" }]
+  },
+  "lifestyles": {
+    "title": "Lifestyles",
+    "sub-menu": [
+      { "title": "Rewards" },
+      { "title": "Stays" },
+      { "title": "Pet Insurance" },
+      { "title": "Donations" },
+      { "title": "Gifting" },
+      { "title": "Lounge & Smart delay" },
+      { "title": "Revolut Shopper" },
+      { "title": "Shops" }
+    ]
+  },
+  "help": {
+    "title": "Help",
+    "sub-menu": [
+      { "title": "Customer help" },
+      { "title": "System status" },
+      { "title": "International transfers" },
+      { "title": "Community" },
+      { "title": "Developers API" },
+      { "title": "Site Map" }
+    ]
+  }
+}
