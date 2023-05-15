@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="app">
-    <header class="nav">
-      <menu v-if="screenSize.isXs" class="menu">
-        <div class="menu__item">
+    <header class="navbar">
+      <div class="navbar__list">
+        <div class="navbar__item">
           <a class="logo">
             <span>
               <svg
@@ -18,9 +18,23 @@
             </span>
           </a>
         </div>
-        <div class="menu__item">
-          <button class="button menu-button">
-            <span class="menu-button__icon">
+        <slot v-if="screenSize.isMd">
+          <ul class="navbar__item">
+            <li
+              v-for="(menuItem, index) in headerMenu"
+              :key="index"
+              class="menu"
+            >
+              <button type="button" class="button-text">
+                {{ menuItem }}
+              </button>
+            </li>
+          </ul>
+          <div></div>
+        </slot>
+        <div v-else class="navbar__item">
+          <button type="button" class="navbar-button">
+            <span class="navbar-button__icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <title>menu</title>
                 <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
@@ -28,19 +42,11 @@
             </span>
           </button>
         </div>
-      </menu>
-      <menu v-else class="menu">
-        <div v-for="(menuItem, index) in menu" :key="index" class="menu-item">
-          <div class="menu-item-container">
-            <button class="button button-text">
-              {{ menuItem }}
-            </button>
-          </div>
-        </div>
-      </menu>
+      </div>
     </header>
     <main class="main">
-      <!-- <div class="call-to-action background-white">
+      <div class="main__content">
+        <!-- <div class="call-to-action background-white">
         <div class="call-to-action__subheader text-dark-gray">
           {{ callToAction.landing.subheader }}
         </div>
@@ -58,25 +64,46 @@
           </div>
         </div>
       </div> -->
-      <div
-        v-for="(content, index) in page['card-content']"
-        :key="index"
-        class=""
-        style="border-radius: 24px; border: 1px solid black"
-      >
-        <!-- <img
-            class="card__image"
-            :srcset="`${content['image-url']}`"
-            style="overflow: hidden"
-          /> -->
-        <div class="card__main-content">
-          <div class="card__title">{{ content.title }}</div>
-          <div class="card__subtitle">{{ content.subtitle }}</div>
-          <div class="card__action"></div>
-        </div>
-      </div>
+        <a
+          v-for="(content, index) in page['card-content']"
+          :key="index"
+          class="main__card"
+        >
+          <img
+            loading="lazy"
+            class="main__card-background"
+            :srcset="
+              screenSize.isSm
+                ? `${baseUrl}/${content['image-url-desktop']}`
+                : `${baseUrl}/${content['image-url-mobile']}`
+            "
+          />
+          <div class="main__card-content">
+            <h3 class="main__card-content-title">
+              <span>{{ content.title }}</span>
+            </h3>
+            <p v-if="content.subtitle" class="main__card-content-subtitle">
+              {{ content.subtitle }}
+            </p>
+            <div class="main__card-action">
+              <div class="main__card-action-button">
+                <span>
+                  <span> {{ content["button-text"] }} </span>
+                </span>
+                <span class="icon main__card-action-button-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>arrow-right</title>
+                    <path
+                      d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </a>
 
-      <!-- <div class="call-to-action background-white">
+        <!-- <div class="call-to-action background-white">
         <div class="call-to-action__subtitle text-dark-gray">
           {{ callToAction["end-of-body"].subtitle }}
         </div>
@@ -91,6 +118,7 @@
           </div>
         </div>
       </div> -->
+      </div>
     </main>
     <footer class="footer footer_background-color_dark footer_color_white">
       <div class="footer__container">
@@ -160,7 +188,37 @@
             </div>
           </div>
         </div> -->
-        <div class="menu">test</div>
+        <div class="menu-list">
+          <div
+            v-for="(menu, menuIndex) in menuAndSubmenu"
+            :key="menuIndex"
+            class="menu-list__item"
+          >
+            <div v-if="screenSize.isSm" class="">
+              <h4 class="">
+                {{ menu.title }}
+              </h4>
+              <div
+                v-for="(submenu, submenuIndex) in menu['sub-menu']"
+                :key="submenuIndex"
+              >
+                {{ submenu.title }}
+              </div>
+            </div>
+
+            <div v-else class="menu-list__collapsible">
+              <button class="button menu-list__collapsible">
+                {{ menu.title }}
+              </button>
+              <a
+                v-for="(submenu, submenuIndex) in menu['sub-menu']"
+                :key="submenuIndex"
+              >
+                {{ submenu.title }}
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="social-media">test</div>
         <div class="company-documents">test</div>
         <div class="copyright">test</div>
@@ -170,31 +228,76 @@
   </div>
 </template>
 
-<script src="https://fonts.cdnfonts.com/css/basier">
-</script>
-
 <script>
-// import MENU_JSON from "./json/en/menu.json";
 import PAGE_JSON from "./json/en/home/page.json";
 import SUBSCRIPTION_JSON from "./json/en/subscription.json";
+import MENU_JSON from "./json/en/menu.json";
 
-export default {
+const SCREEN_SIZE = {
+  XS: 360,
+  SM: 720,
+  MD: 1024,
+  LG: 1440,
+  XL: 1920,
+};
+
+const myMixin = {
   data() {
     return {
-      message: "Hello World!",
-      menu: ["", "Personal", "Business", "Revolt <18", "Company"],
-      language: "en-MY",
-      subscription: SUBSCRIPTION_JSON,
-      page: PAGE_JSON,
       screenSize: {
-        isXs: true,
+        isXs: false,
         isSm: false,
         isMd: false,
+        isLg: false,
+        isXl: false,
       },
     };
   },
+  mounted() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      Object.keys(SCREEN_SIZE).forEach((key) => {
+        // console.log(SCREEN_SIZE[key]);
+        const firstCharacter = key.charAt(0);
+        const restOfTheCharacter = key.substring(1).toLowerCase();
+        const capitalize = firstCharacter + restOfTheCharacter;
+
+        // console.log(window.innerWidth, SCREEN_SIZE[key]);
+        // console.log(
+        //   window.matchMedia(`(min-width: ${SCREEN_SIZE[key]}px)`).matches
+        // );
+
+        this.$set(
+          this.screenSize,
+          `is${capitalize}`,
+          window.matchMedia(`(min-width: ${SCREEN_SIZE[key]}px)`).matches
+        );
+      });
+    },
+  },
+};
+
+export default {
+  mixins: [myMixin],
+  data() {
+    return {
+      message: "Hello World!",
+      headerMenu: ["Personal", "Business", "Revolt <18", "Company"],
+      language: "en-MY",
+      subscription: SUBSCRIPTION_JSON,
+      page: PAGE_JSON,
+      menuAndSubmenu: MENU_JSON,
+      baseUrl: import.meta.env.VITE_BASE_URL,
+    };
+  },
   created() {
-    console.log(PAGE_JSON);
+    console.log(baseUrl);
   },
   methods: {
     wrapNavigateSubscription(event, index) {
@@ -246,33 +349,40 @@ $lg: 0px;
 $xl: 0px;
 /*#endregion*/
 
+/*region override default*/
+button {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+/*endregion*/
+
 .app {
   font-family: "Custom Font";
   color: $dark;
 }
 
-.nav {
+.navbar {
   background-color: $nav-gray;
   backdrop-filter: blur(16px);
   color: $dark;
   position: sticky;
   top: 0px;
+  z-index: 2;
   border-bottom: 1px solid $nav-bottom-gray;
-}
 
-.menu {
-  margin: 0px;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
+  &__list {
+    margin: 0px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+  }
+
   &__item {
     padding: 0px;
     list-style: none;
-
-    &-container {
-    }
   }
 
   &-button {
@@ -281,23 +391,125 @@ $xl: 0px;
     height: 32px;
     display: flex;
     border-radius: 10px;
+
     &__icon {
       display: inline-flex;
       width: 16px;
       height: 16px;
+      margin: auto;
     }
   }
 }
 
-.main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  max-width: 1000px;
-  margin: auto;
-  padding-bottom: 128px;
+.menu {
+  display: flex;
+}
 
-  &-container {
+.main {
+  background-color: $light-gray;
+
+  &__content {
+    // transform: translate3d(0px, 0px, 0px);
+    display: grid;
+    align-content: flex-start;
+    gap: 1.25rem;
+    max-width: 1000px;
+    margin: auto;
+    padding-bottom: 60px;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  &__card {
+    border-radius: 20px;
+    color: $dark;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    &:hover {
+      .main__card-background {
+        transform: scale(1.05);
+        // translate: translate3d(0px, 0px, 0px);
+      }
+
+      .main__card-action-button {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+
+    // object-fit: initial;
+    //1, 4,7
+    &:nth-child(3n + 1) {
+      aspect-ratio: 0.6594488188976378;
+
+      .main__card-content {
+        color: $white;
+      }
+    }
+    //2,5,8
+    &:nth-child(3n - 1) {
+      aspect-ratio: 0.7613636363636364;
+
+      .main__card-action {
+        color: $primary-color;
+      }
+    }
+    // 3,6
+    &:nth-child(3n) {
+      aspect-ratio: 0.7613636363636364;
+
+      .main__card-content {
+        color: $white;
+      }
+    }
+
+    &-background {
+      transform-origin: right bottom;
+      transition: transform 0.6s ease 0s;
+      position: absolute;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      height: 100%;
+      position: relative;
+
+      &-title {
+        font-weight: 600;
+        font-size: 24px;
+      }
+
+      &-subtitle {
+        margin-top: 0.5rem;
+        font-size: 16px;
+      }
+    }
+
+    &-action {
+      margin-left: -1rem;
+      margin-top: 1rem;
+      display: flex;
+      box-sizing: border-box;
+      position: relative;
+
+      &-button {
+        width: fit-content;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        padding: 0.25rem 0.5rem 0.25rem 1rem;
+        position: absolute;
+
+        &-icon {
+          margin-left: 0.5rem;
+        }
+      }
+    }
   }
 }
 
@@ -440,13 +652,14 @@ $xl: 0px;
   }
 }
 
-.button {
-  padding: 0;
-  border: none;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
+.menu-list {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  &__item {
+  }
+}
 
+.button {
   &:hover {
     cursor: pointer;
   }
@@ -454,6 +667,7 @@ $xl: 0px;
   &-text {
     margin: 0px 4px;
     padding: 8px 12px;
+    background-color: inherit;
     // &__text {
     //   font-size: 16px;
     //   font-weight: 500;
@@ -513,9 +727,47 @@ $xl: 0px;
 }
 
 @media (min-width: $sm) {
-  .menu {
-    &-container {
+  .navbar {
+    &__list {
       padding: 8px 12px;
+    }
+  }
+
+  .main {
+    &__content {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &__card {
+      &:hover {
+        .main__card-background {
+        }
+      }
+
+      &:nth-child(3n + 1) {
+        grid-column: 1/-1;
+        aspect-ratio: 1.9083969465648856;
+
+        .main__card-content {
+          width: 51.6%;
+
+          &-title {
+            margin-top: auto;
+            display: block;
+          }
+        }
+      }
+      &:nth-child(3n - 1) {
+        aspect-ratio: 0.8461538461538461;
+      }
+      &:nth-child(3n) {
+        aspect-ratio: 0.8461538461538461;
+      }
+
+      &-action {
+        margin-top: auto;
+        align-items: flex-end;
+      }
     }
   }
 
@@ -531,18 +783,59 @@ $xl: 0px;
   //     max-width: 226px;
   //     display: grid;
   //     // max-height: 308px;
-
-  .main {
-    padding-bottom: 60px;
-  }
 }
 
 @media (min-width: $md) {
+  .navbar {
+    &__list {
+      height: 69px;
+      width: 1000px;
+      padding: 16px 0px;
+      margin: 0px auto;
+      justify-content: flex-start;
+    }
+
+    &__item {
+      display: flex;
+    }
+  }
+
   .menu {
-    height: 69px;
-    padding: 16px 0px;
-    max-width: 1000px;
-    margin: 0px auto;
+    //
+    // padding: 0px;
+    flex-direction: row;
+    &__item {
+    }
+  }
+
+  .main {
+    &__content {
+      padding-bottom: 128px;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    &__card {
+      &-background {
+        transform-origin: center center;
+      }
+
+      &-content {
+        &-title {
+          font-size: 34px;
+          line-height: 40px;
+        }
+        &-subtitle {
+          font-size: 20px;
+          line-height: 28px;
+          margin-top: 1rem;
+        }
+      }
+
+      &-action {
+        font-size: 20px;
+      }
+    }
   }
 
   .subscription {

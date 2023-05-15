@@ -4,37 +4,44 @@
       "title": "Pay and get paid, hassle-free",
       "subtitle": "Send and request money with a tap, split bills easily with anyone in 200+ countries",
       "button-text": "Explore easy payments",
-      "image-url": "https://www.revolut.com/_next/image-asset/w:1080/q:75/https%3A%2F%2Fassets.revolut.com%2Fwebsite%2Fassets%2Fretail%2Fhome-V4%2FPayments.jpg"
+      "image-url-desktop": "image/en/Payments.webp",
+      "image-url-mobile": "image/en/Payments-Mobile.webp"
     },
     {
       "title": "Earn up to 3% annual interest, paid daily",
       "subtitle": "",
       "button-text": "Start saving",
-      "image-url": "https://www.revolut.com/_next/image-asset/w:3840/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2Fe65937f9-afbe-430b-900f-1b591b8ad8c9%2F09f4dac1-61cb-4c39-b2e5-3943b4dbf001.png"
+      "image-url-desktop": "image/en/InterestPaid.webp",
+      "image-url-mobile": "image/en/InterestPaid-Mobile.webp"
     },
     {
       "title": "Get exclusive Rewards and save as you spend",
       "subtitle": "",
       "button-text": "Browse cashback & discounts",
-      "image-url": "https://www.revolut.com/_next/image-asset/w:3840/q:75/https%3A%2F%2Fassets.revolut.com%2Fwebsite%2Fassets%2Fretail%2Fhome-V4%2FRewards.jpg"
+      "image-url-desktop": "image/en/Rewards.webp",
+      "image-url-mobile": "image/en/Rewards-Mobile.webp"
     },
     {
       "title": "Cards with style and substance",
       "subtitle": "Our cards are more than just their good looks. Get instant payment notifications and manage card security in app. Start spending straight away with Google or Apple Pay",
       "button-text": "Get a card",
-      "image-url": "https://www.revolut.com/_next/image-asset/w:1080/q:75/https%3A%2F%2Fassets.revolut.com%2Fwebsite%2Fassets%2Fretail%2Fhome-V4%2FCards.jpg"
+
+      "image-url-desktop": "image/en/Cards.webp",
+      "image-url-mobile": "image/en/Cards-Mobile.webp"
     },
     {
       "title": "All your accounts, all in one place",
       "subtitle": "",
       "button-text": "Discover Open Banking",
-      "image-url": "https://www.revolut.com/_next/image-asset/w:2048/q:75/https%3A%2F%2Fassets.revolut.com%2Fwebsite%2Fassets%2Fretail%2Fhome-V4%2FOpenBanking.jpg"
+      "image-url-desktop": "image/en/OpenBanking.webp",
+      "image-url-mobile": "image/en/OpenBanking-Mobile.webp"
     },
     {
       "title": "No more unwanted subscriptions",
       "subtitle": "",
       "button-text": "Explore Subscriptions",
-      "image-url": "https://www.revolut.com/_next/image-asset/w:1080/q:75/https%3A%2F%2Fassets.revolut.com%2Fpublished-assets-v3%2F86c34e35-ab2b-4aff-9e04-22c241b5c46c%2F994d892e-356a-4f69-b53c-95b11c723059.png"
+      "image-url-desktop": "image/en/Subscription.webp",
+      "image-url-mobile": "image/en/Subscription-Mobile.webp"
     }
   ]
 }
