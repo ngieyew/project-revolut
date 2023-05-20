@@ -4,18 +4,7 @@
       <div class="navbar__list">
         <div class="navbar__item">
           <a class="logo">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="25"
-                viewBox="0 0 106 25"
-              >
-                <title>Revolut</title>
-                <path
-                  d="M68.664 8.915c-1.784-1.612-3.938-2.4-6.428-2.4-2.456 0-4.61.789-6.395 2.4-1.784 1.577-2.691 3.772-2.691 6.584s.907 5.005 2.691 6.617c1.784 1.577 3.939 2.366 6.395 2.366 2.49 0 4.644-.789 6.428-2.366 1.818-1.612 2.725-3.806 2.725-6.617s-.908-5.007-2.725-6.584zm-9.792 10.183c-.941-.925-1.415-2.126-1.415-3.6s.47-2.674 1.415-3.566a4.6 4.6 0 0 1 3.363-1.371 4.68 4.68 0 0 1 3.398 1.371c.974.892 1.448 2.091 1.448 3.566s-.47 2.674-1.448 3.6c-.941.891-2.086 1.337-3.398 1.337a4.71 4.71 0 0 1-3.363-1.337zm18.881 4.903V.473h-4.24v23.528zM91.438 6.995v9.388c0 2.262-1.2 3.762-3.484 3.762-2.323 0-3.491-1.498-3.491-3.762V6.995h-4.248v10.108c0 3.916 2.423 7.378 7.739 7.378h.033c5.283 0 7.702-3.539 7.702-7.378V6.995zm-42.8 0l-4.24 11.52-4.24-11.52h-4.509l6.766 17.007h3.972l6.765-17.007zm-12.969 8.023c0-2.468-.773-4.491-2.288-6.103s-3.464-2.4-5.854-2.4c-2.456 0-4.544.858-6.26 2.537-1.684 1.681-2.523 3.806-2.523 6.446s.841 4.801 2.49 6.48c1.684 1.681 3.703 2.503 6.092 2.503 3.67 0 6.26-1.646 7.839-4.972l-3.162-1.852c-1.041 2.091-2.558 3.12-4.61 3.12-2.523 0-4.307-1.646-4.577-4.251h12.852v-1.509zM27.39 9.806c2.389 0 3.972 1.371 4.375 3.566h-8.951c.641-2.023 2.389-3.566 4.577-3.566zm-8.647 14.195l-5.689-10.148c3.599-1.337 5.383-3.668 5.383-7.063C18.441 2.641 15.208 0 10.06 0H0v24.001h4.442v-9.737h3.77l5.45 9.738zM10.06 3.977c2.625 0 3.938 1.063 3.938 3.154s-1.314 3.154-3.938 3.154H4.442V3.977zm92.817 20.504c-2.729 0-4.942-2.256-4.942-5.04V2.4h4.24v4.601h3.636v3.497h-3.636v8.665c0 .816.649 1.477 1.451 1.477h2.185v3.841z"
-                ></path>
-              </svg>
-            </span>
+            <LogoIcon />
           </a>
         </div>
         <slot v-if="screenSize.isMd">
@@ -188,41 +177,122 @@
             </div>
           </div>
         </div> -->
-        <div class="menu-list">
+        <div class="footer-menu">
           <div
             v-for="(menu, menuIndex) in menuAndSubmenu"
             :key="menuIndex"
-            class="menu-list__item"
+            class="footer-menu__main-list"
           >
-            <div v-if="screenSize.isSm" class="">
-              <h4 class="">
+            <div v-if="screenSize.isSm" class="footer-menu__submenu-list">
+              <h4 class="footer-menu__main-title">
                 {{ menu.title }}
               </h4>
-              <div
-                v-for="(submenu, submenuIndex) in menu['sub-menu']"
-                :key="submenuIndex"
-              >
-                {{ submenu.title }}
-              </div>
-            </div>
-
-            <div v-else class="menu-list__collapsible">
-              <button class="button menu-list__collapsible">
-                {{ menu.title }}
-              </button>
               <a
                 v-for="(submenu, submenuIndex) in menu['sub-menu']"
                 :key="submenuIndex"
+                class="footer-menu__submenu-title"
               >
                 {{ submenu.title }}
               </a>
             </div>
+
+            <div v-else class="footer-menu__main-list">
+              <button
+                class="button footer-menu__collapsible"
+                @click="toggleCollapsibleMenu(menu, menuIndex)"
+              >
+                <h4 class="footer-menu__main-title">
+                  {{ menu.title }}
+                </h4>
+                <span class="icon footer-menu__icon">
+                  <svg
+                    v-if="!menu.collapsibleIsActive"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <title>chevron-down</title>
+                    <path
+                      d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
+                    />
+                  </svg>
+
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <title>chevron-up</title>
+                    <path
+                      d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"
+                    />
+                  </svg>
+                </span>
+              </button>
+
+              <!-- <slot :ref="`footer-menu__submenu-list-${menuIndex}`"> -->
+              <div
+                v-show="menu['collapsibleIsActive']"
+                class="footer-menu__submenu-list"
+              >
+                <a
+                  v-for="(submenu, submenuIndex) in menu['sub-menu']"
+                  :key="submenuIndex"
+                  class="footer-menu__submenu-title"
+                >
+                  {{ submenu.title }}
+                </a>
+              </div>
+              <!-- </slot> -->
+            </div>
           </div>
         </div>
-        <div class="social-media">test</div>
-        <div class="company-documents">test</div>
-        <div class="copyright">test</div>
-        <div class="currency">test</div>
+        <div class="footer-social-media">
+          <a>
+            <span class="logo"> <LogoIcon /> </span
+          ></a>
+          <ul class="footer-social-media__icon-list">
+            <li
+              v-for="(icon, iconIndex) in socialMedia"
+              :key="iconIndex"
+              class="footer-social-media__icon-item"
+            >
+              <a><span class="icon" v-html="icon"> </span> </a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer__empty"></div>
+        <div class="footer-policy footer-text">
+          <a class="footer-policy__country-container">
+            <span class="footer-policy__country">
+              <img class="icon" alt="GB" src="./assets/country/GB.png" />
+              <span>United Kingdom</span>
+            </span>
+          </a>
+          <ul class="footer-policy__list">
+            <li
+              v-for="(policy, policyIndex) in policies"
+              :key="policyIndex"
+              class="footer-policy__item"
+            >
+              <a class="footer-policy__link">
+                {{ policy.title }}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-copyright footer-text">
+          <ul>
+            <li
+              v-for="(copyrightItem, copyrightIndex) in copyright"
+              :key="copyrightIndex"
+              class="footer-copyright__item"
+            >
+              {{ copyrightItem.title }}
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="copyright">test</div>
+        <div class="currency">test</div> -->
       </div>
     </footer>
   </div>
@@ -232,6 +302,14 @@
 import PAGE_JSON from "./json/en/home/page.json";
 import SUBSCRIPTION_JSON from "./json/en/subscription.json";
 import MENU_JSON from "./json/en/menu.json";
+import FOOTER_JSON from "./json/en/footer/footer.json";
+import _ from "lodash";
+import FacebookIcon from "./assets/svg/social-media/facebook.svg?raw";
+import InstagramIcon from "./assets/svg/social-media/instagram.svg?raw";
+import LinkedInIcon from "./assets/svg/social-media/linkedin.svg?raw";
+import TikTokIcon from "./assets/svg/social-media/tiktok.svg?raw";
+import TwitterIcon from "./assets/svg/social-media/twitter.svg?raw";
+import LogoIcon from "./assets/svg/logo/logo.svg";
 
 const SCREEN_SIZE = {
   XS: 360,
@@ -261,6 +339,14 @@ const myMixin = {
     window.removeEventListener("resize", this.handleResize);
   },
   methods: {
+    toggleCollapsibleMenu(menu, key) {
+      console.log(this.menuAndSubmenu[key]);
+      this.$set(
+        this.menuAndSubmenu[key],
+        "collapsibleIsActive",
+        !menu.collapsibleIsActive
+      );
+    },
     handleResize() {
       Object.keys(SCREEN_SIZE).forEach((key) => {
         // console.log(SCREEN_SIZE[key]);
@@ -284,6 +370,10 @@ const myMixin = {
 };
 
 export default {
+  name: "App",
+  components: {
+    LogoIcon,
+  },
   mixins: [myMixin],
   data() {
     return {
@@ -292,12 +382,24 @@ export default {
       language: "en-MY",
       subscription: SUBSCRIPTION_JSON,
       page: PAGE_JSON,
-      menuAndSubmenu: MENU_JSON,
+      menuAndSubmenu: [],
+      policies: FOOTER_JSON["policies"],
+      copyright: FOOTER_JSON["copyright"],
+      moneyTransfer: FOOTER_JSON["money-transfer"],
+      exchangeRate: FOOTER_JSON["exchange-rate"],
+      countryTransfer: FOOTER_JSON["country-transfer"],
       baseUrl: import.meta.env.VITE_BASE_URL,
+      socialMedia: [
+        FacebookIcon,
+        InstagramIcon,
+        LinkedInIcon,
+        TikTokIcon,
+        TwitterIcon,
+      ],
     };
   },
   created() {
-    console.log(baseUrl);
+    this.transformData();
   },
   methods: {
     wrapNavigateSubscription(event, index) {
@@ -315,6 +417,21 @@ export default {
     hoverSubscription() {
       console.log("hover");
     },
+
+    transformData() {
+      this.transformMenuAndSubmenu();
+    },
+    transformMenuAndSubmenu() {
+      const defaultMenuAndSubmenu = MENU_JSON;
+      let transformedMenuAndSubmenu = _.cloneDeep(defaultMenuAndSubmenu);
+
+      for (const menu in transformedMenuAndSubmenu) {
+        transformedMenuAndSubmenu[menu].collapsibleIsActive = false;
+      }
+
+      this.$set(this, "menuAndSubmenu", transformedMenuAndSubmenu);
+      console.log(transformedMenuAndSubmenu);
+    },
   },
 };
 </script>
@@ -324,7 +441,7 @@ export default {
 @font-face {
   font-family: "Custom Font";
   // font-style: normal;
-  font-weight: 500;
+  // font-weight: 100;
   // font-stretch: 100%;
   src: url("./assets/font/BasierCircle-Regular.otf") format("woff2");
   // unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
@@ -333,7 +450,6 @@ export default {
 
 /*#region variables*/
 $primary-color: rgb(6, 102, 235);
-$gray: rgba(255, 255, 255, 0.5);
 $light-gray: rgb(243, 244, 245);
 $dark-gray: rgb(80, 90, 99);
 $white: rgb(255, 255, 255);
@@ -354,6 +470,15 @@ button {
   padding: 0;
   border: none;
   cursor: pointer;
+  font-family: "Custom Font";
+
+  &:focus {
+    box-shadow: 0;
+  }
+}
+
+a {
+  color: inherit;
 }
 /*endregion*/
 
@@ -525,12 +650,150 @@ button {
     padding: 0px 20px;
   }
 
+  &__empty {
+    height: 2.5rem;
+  }
+
   &_color_white {
     color: $white;
   }
 
   &_background-color_dark {
     background-color: $dark;
+  }
+
+  &-menu {
+    width: 100%;
+    min-width: 320px;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+
+    &__main-title {
+      color: rgb($white, 0.8);
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      margin-right: auto;
+    }
+
+    &__submenu-title {
+      font-weight: 400;
+      font-size: 12px;
+      color: rgb($white, 0.6);
+    }
+
+    &__collapsible {
+      width: 100%;
+      display: flex;
+      // justify-content: space-between;
+    }
+
+    &__main-list {
+      .button {
+        width: 100%;
+        background-color: transparent;
+
+        &:focus-visible {
+          // outline: none;
+        }
+      }
+
+      .icon {
+        margin: 0px !important;
+        color: rgb($white, 0.8);
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &__submenu-list {
+      padding: 0rem 0.5rem;
+      display: grid;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &-social-media {
+    display: flex;
+    flex-direction: row;
+    margin: 2.5rem 0px 0px;
+    padding: 0px 0px 0.25rem;
+    border-bottom: 1px solid rgb($white, 0.1);
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    .icon {
+      color: rgb($white, 0.6);
+      width: 16px;
+      height: 16px;
+    }
+
+    .logo {
+      fill: rgb(234, 237, 240);
+    }
+
+    &__icon-list {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__icon-item {
+      padding: 0.25rem;
+    }
+  }
+
+  &-text {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgb($white, 0.6);
+  }
+
+  &-policy {
+    display: grid;
+    gap: 0.75rem 2rem;
+    grid-template-columns: auto auto 1fr;
+    margin-bottom: 2.5rem;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__country {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 120px;
+
+      &-container {
+        padding: 0.25rem 0;
+      }
+    }
+
+    &__list {
+      display: flex;
+      grid-area: 2 / 1 / auto / span 3;
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      padding: 0.25rem 0px;
+    }
+
+    &__link {
+      padding-right: 1.5rem;
+    }
+  }
+
+  &-copyright {
+    margin-bottom: 2.5rem;
+
+    &__item {
+      margin-bottom: 1rem;
+    }
   }
 }
 
@@ -581,7 +844,7 @@ button {
       justify-content: center;
 
       &_color-gray {
-        color: $gray;
+        color: rgb($white, 0.5);
       }
     }
 
@@ -652,13 +915,6 @@ button {
   }
 }
 
-.menu-list {
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-  &__item {
-  }
-}
-
 .button {
   &:hover {
     cursor: pointer;
@@ -699,6 +955,7 @@ button {
 }
 
 .icon {
+  margin: 0px;
   color: inherit;
   width: 24px;
   height: 24px;
@@ -775,6 +1032,19 @@ button {
     &-plan {
       &__card {
         grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  .footer {
+    &-menu {
+      column-count: 4;
+      column-gap: 1rem;
+
+      &__main-list {
+        break-inside: avoid;
+        padding-right: 1rem;
+        padding-bottom: 1rem;
       }
     }
   }
@@ -870,6 +1140,10 @@ button {
   .footer {
     &__container {
       padding: 0px;
+    }
+
+    &-menu {
+      column-count: 6;
     }
   }
 }

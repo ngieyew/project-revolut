@@ -53,5 +53,35 @@
       { "title": "Developers API" },
       { "title": "Site Map" }
     ]
+  },
+  "plans": {
+    "title": "Plans",
+    "sub-menu": [
+      { "title": "Standard" },
+      { "title": "Plus" },
+      { "title": "Premium" },
+      { "title": "Metal" },
+      { "title": "Compare plans" }
+    ]
+  },
+  "company": {
+    "title": "Company",
+    "sub-menu": [
+      { "title": "About us" },
+      { "title": "Culture" },
+      { "title": "Diversity and Inclusion" },
+      { "title": "Code of Conduct" },
+      { "title": "Sustainability" },
+      { "title": "Careers" },
+      { "title": "Benefits" },
+      { "title": "Blog" },
+      { "title": "News and Media" },
+      { "title": "Leadership" },
+      { "title": "Affiliates" },
+      { "title": "Revolut Career Club" },
+      { "title": "Contact" },
+      { "title": "Financial statements" },
+      { "title": "Rev-celerator Programme" }
+    ]
   }
 }
